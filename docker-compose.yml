@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  app:
+    build: .
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    volumes:
+      - ./:/app
+    depends_on:
+      - database
+      - redis
+
+  database:
+    image: mongo:latest
+    environment:
+      - MONGODB_DATABASE="moonshot"
+    ports:
+      - 27017:27017
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
