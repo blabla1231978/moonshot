@@ -14,8 +14,9 @@ async function whitelistMiddlewareHandler(req: express.Request, res: express.Res
     const whiteList = await whitelistService.getWhiteList();
     if (!whiteList.includes(website)) {
         res.status(500).send(NOT_AUTHORIZED);
+    } else {
+        next();
     }
-    next();
 }
 
 export { whitelistMiddlewareHandler };

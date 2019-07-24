@@ -10,9 +10,10 @@ async function limitationMiddlewareHandler(req: express.Request, res: express.Re
     const isIpExceededTheLimitation = await whitelistService.isIpExceededTheLimitation(userIp);
     if (!isIpExceededTheLimitation) {
         res.status(500).send(NOT_AUTHORIZED);
+    } else {
+        whitelistService.setRateLimiterForIp(userIp);
+        next();
     }
-    whitelistService.setRateLimiterForIp(userIp);
-    next();
 }
 
 export { limitationMiddlewareHandler };
