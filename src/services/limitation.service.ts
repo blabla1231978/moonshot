@@ -1,7 +1,8 @@
 import { IHandyRedis } from 'handy-redis';
-import { inject } from 'inversify';
+import {inject, injectable} from 'inversify';
 
 const RATE_LIMITER_IN_SECONDS = 30;
+@injectable()
 export class LimitationService {
 
     @inject('RedisClient') private redisClient: IHandyRedis;
