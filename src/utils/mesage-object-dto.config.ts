@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { URL } from 'url';
-import {MessageObjectDto} from '../dataTransferObjects/message-object.dto';
+import { MessageObjectDto } from '../dataTransferObjects/message-object.dto';
 
 function getMessageObjectDto(request: express.Request): MessageObjectDto {
     const hostname = (new URL(request.headers.origin.toString())).hostname;

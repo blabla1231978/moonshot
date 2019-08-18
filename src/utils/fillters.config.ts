@@ -1,9 +1,11 @@
 import * as express from 'express';
-import {FiltersDto} from '../dataTransferObjects/filters.dto';
+import { URL } from 'url';
+import { FiltersDto } from '../dataTransferObjects/filters.dto';
 
 function getFiltersDto(request: express.Request): FiltersDto {
+    const hostname = (new URL(request.headers.origin.toString())).hostname;
     return {
-        website: request.query.website,
+        website: hostname,
         from: request.query.from || null,
         until: request.query.until || null,
         skip: request.query.skip || null,

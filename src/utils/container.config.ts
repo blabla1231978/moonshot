@@ -8,6 +8,7 @@ import { MessageRepository } from '../repositories/message.repository';
 import { LimitationService } from '../services/limitation.service';
 import { MessageService } from '../services/message.service';
 import { WhitelistService } from '../services/whitelist.service';
+import {MessageQueryBuilder} from "../queryBuilders/message.queryBuilder";
 
 const container = new Container();
 container.bind<Message>('Message').to(Message);
@@ -19,5 +20,6 @@ container.bind<MongodbModule>('MongodbModule').to(MongodbModule);
 container.bind<RedisModule>('RedisModule').to(RedisModule);
 container.bind<ServerModule>('ServerModule').to(ServerModule);
 container.bind<WhitelistMiddleware>('WhitelistMiddleware').to(WhitelistMiddleware);
+container.bind<MessageQueryBuilder>('MessageQueryBuilder').to(MessageQueryBuilder);
 
 export { container };
