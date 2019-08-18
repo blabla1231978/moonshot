@@ -1,7 +1,10 @@
-import {createConnection} from 'typeorm';
+import { injectable } from 'inversify';
+import { Connection, createConnection } from 'typeorm';
 
-async function initMongoConnection() {
-    await createConnection();
+@injectable()
+export class MongodbModule {
+
+    public async initConnection(): Promise<void> {
+        const connection = await createConnection();
+    }
 }
-
-export { initMongoConnection };

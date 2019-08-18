@@ -7,7 +7,10 @@ function getMessageObjectDto(request: express.Request): MessageObjectDto {
     return  {
         firstName: request.body.firstname || '',
         domain: hostname,
-        browserInfo: request.useragent,
+        browserInfo: {
+            version: request.useragent.version,
+            name: request.useragent.browser,
+        },
     };
 }
 
