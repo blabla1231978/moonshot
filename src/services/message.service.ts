@@ -31,7 +31,8 @@ export class MessageService {
     }
 
     private setSuccessGetMessagesResponse(website: string, messages: Message[]): void {
-        this.response[website] = messages;
+        const responseKey = website && website.length > 0 ? website : 'messages';
+        this.response[responseKey] = messages;
         this.response.status = 200;
         this.response.err = false;
     }

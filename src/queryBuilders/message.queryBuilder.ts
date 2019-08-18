@@ -1,7 +1,6 @@
 import {injectable} from 'inversify';
 import { FiltersDto } from '../dataTransferObjects/filters.dto';
 import { QueryInterface } from './query.interface';
-import {AndSectionInterface} from "./and-section.interface";
 
 @injectable()
 export class MessageQueryBuilder {
@@ -9,7 +8,6 @@ export class MessageQueryBuilder {
     private query: QueryInterface = {};
 
     public getMessageQuery(filters: FiltersDto): object {
-
         if (!this.isFiltersIsEmpty(filters)) {
             this.buildQuery(filters);
         }
@@ -18,7 +16,7 @@ export class MessageQueryBuilder {
 
     private isFiltersIsEmpty(filters: FiltersDto): boolean {
         const clearedFilters = this.getClearFiltersObject(filters);
-        return Object.keys(clearedFilters).length > 0;
+        return Object.keys(clearedFilters).length === 0;
     }
 
     private getClearFiltersObject(object: object): object {
@@ -38,19 +36,24 @@ export class MessageQueryBuilder {
         return this.query;
     }
 
-    private addWhereSection(domain: string, from: Date, until: Date) {
-        const and = [];
+    private addWhereSection(domain: string, fromDate: Date, untilDate: Date) {
+        this.query.where = {};
 
         if ( domain && domain.length > 0) {
-            and.push({ domain });
+            this.query.where.$and = [{ domain }];
         }
 
-        if ( and.length ) {
-            this.query.where.$and = and;
+        if (fromDate || untilDate ) {
+            this.query.where.createdAt = {};
         }
 
-        (from) && (this.query.where.createdAt.$gte = new Date(from));
-        (until) && (this.query.where.createdAt.$lte = new Date(until));
+        if ( fromDate ) {
+            this.query.where.createdAt.$gte = new Date(fromDate);
+        }
+
+        if ( untilDate ) {
+            this.query.where.createdAt.$lte = new Date(untilDate);
+        }
     }
 
     private addSkipSection(skip: number) {
