@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-
-
 buildImage()
 {
     echo "Building Docker Image (name = moonshot)."
