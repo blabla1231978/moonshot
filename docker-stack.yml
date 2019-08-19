@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+  app:
+    image: moonshot
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app
+    depends_on:
+      - database
+      - redis
+    networks:
+      - webnet
+
+  database:
+    networks:
+      - webnet
+    image: mongo:latest
+    hostname: database
+    environment:
+      - MONGODB_DATABASE="moonshot"
+    ports:
+      - 27017:27017
+
+  redis:
+    hostname: redis
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - webnet
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  webnet:
+    driver: overlay
+    attachable: true
