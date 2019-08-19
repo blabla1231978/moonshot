@@ -1,17 +1,20 @@
 import { Container } from 'inversify';
-import { Message } from '../entity/message';
+import { FiltersDto } from '../dataTransferObjects/filters.dto';
+import { MessageDto } from '../dataTransferObjects/mesage.dto';
+import { MessageEntity } from '../entity/message.entity';
+import { LimitationMiddleware } from '../middlewares/limitation.middleware';
 import { WhitelistMiddleware } from '../middlewares/whitelist.middleware';
 import { MongodbModule } from '../modules/mongodb.module';
 import { RedisModule } from '../modules/redis.module';
 import { ServerModule } from '../modules/server.module';
+import { MessageQueryBuilder } from '../queryBuilders/message.queryBuilder';
 import { MessageRepository } from '../repositories/message.repository';
 import { LimitationService } from '../services/limitation.service';
 import { MessageService } from '../services/message.service';
 import { WhitelistService } from '../services/whitelist.service';
-import {MessageQueryBuilder} from "../queryBuilders/message.queryBuilder";
 
 const container = new Container();
-container.bind<Message>('Message').to(Message);
+container.bind<MessageEntity>('MessageEntity').to(MessageEntity);
 container.bind<MessageService>('MessageService').to(MessageService);
 container.bind<MessageRepository>('MessageRepository').to(MessageRepository);
 container.bind<WhitelistService>('WhitelistService').to(WhitelistService);
@@ -20,6 +23,9 @@ container.bind<MongodbModule>('MongodbModule').to(MongodbModule);
 container.bind<RedisModule>('RedisModule').to(RedisModule);
 container.bind<ServerModule>('ServerModule').to(ServerModule);
 container.bind<WhitelistMiddleware>('WhitelistMiddleware').to(WhitelistMiddleware);
+container.bind<LimitationMiddleware>('LimitationMiddleware').to(LimitationMiddleware);
 container.bind<MessageQueryBuilder>('MessageQueryBuilder').to(MessageQueryBuilder);
+container.bind<FiltersDto>('FiltersDto').to(FiltersDto);
+container.bind<MessageDto>('MessageDto').to(MessageDto);
 
 export { container };

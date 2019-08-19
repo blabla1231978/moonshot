@@ -1,4 +1,4 @@
-export interface BrowserInfoDto {
+export interface BrowserInfoInterface {
     version: string;
     name: string;
 }

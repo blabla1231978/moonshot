@@ -1,3 +1,3 @@
 export interface AndSectionInterface {
-    domain?: string;
+    'messageStructure.domain'?: string;
 }

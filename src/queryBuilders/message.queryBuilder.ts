@@ -1,25 +1,25 @@
 import {injectable} from 'inversify';
-import { FiltersDto } from '../dataTransferObjects/filters.dto';
-import { QueryInterface } from './query.interface';
+import { FiltersInterface } from '../interfaces/filters.interface';
+import { QueryInterface } from '../interfaces/query/query.interface';
 
 @injectable()
 export class MessageQueryBuilder {
 
     private query: QueryInterface = {};
 
-    public getMessageQuery(filters: FiltersDto): object {
+    public getMessageQuery(filters: FiltersInterface): object {
         if (!this.isFiltersIsEmpty(filters)) {
             this.buildQuery(filters);
         }
         return this.query;
     }
 
-    private isFiltersIsEmpty(filters: FiltersDto): boolean {
-        const clearedFilters = this.getClearFiltersObject(filters);
+    private isFiltersIsEmpty(filters: FiltersInterface): boolean {
+        const clearedFilters = this.getClearObject(filters);
         return Object.keys(clearedFilters).length === 0;
     }
 
-    private getClearFiltersObject(object: object): object {
+    private getClearObject(object: object): object {
         const clearedFilters = Object.assign(object);
         for (const [key, value] of Object.entries(clearedFilters)) {
             if (value === undefined || value === null) {
@@ -29,7 +29,7 @@ export class MessageQueryBuilder {
         return clearedFilters;
     }
 
-    private buildQuery(filters: FiltersDto) {
+    private buildQuery(filters: FiltersInterface) {
         this.addWhereSection(filters.website, filters.from, filters.until);
         this.addSkipSection(filters.skip);
         this.addLimitSection(filters.limit);
@@ -40,7 +40,9 @@ export class MessageQueryBuilder {
         this.query.where = {};
 
         if ( domain && domain.length > 0) {
-            this.query.where.$and = [{ domain }];
+            this.query.where.$and = [
+                { 'messageStructure.domain': domain },
+            ];
         }
 
         if (fromDate || untilDate ) {
