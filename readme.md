@@ -7,9 +7,9 @@ we used [inversify](https://github.com/inversify/InversifyJS) Libary to dealing 
 ./server.sh
 ```
 
-###Usage
+#Usage
 
-##List of supported endpoints
+#List of supported endpoints
 - Set New Message (Post Request) [localhost:3000/message/set]()
     Request Body Can Include Any Fields
 - Get Messages (Get Request) [localhost:3000/message/get]()
