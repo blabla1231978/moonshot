@@ -4,7 +4,7 @@ MoonShot Contact Us Service is a NodeJS app powered by TypeScript for dealing wi
 we used [inversify](https://github.com/inversify/InversifyJS) Libary to dealing with inversion of control (IoC) container
 ### Start Project
 ```bash
-./server.sh
+./server.sh start
 ```
 
 # List of supported endpoints
@@ -17,3 +17,8 @@ we used [inversify](https://github.com/inversify/InversifyJS) Libary to dealing 
     3. website: string - to filter messages come from this website
     4. skip: number - for skip first X Messages
     5. limit: number - for limit count of returned Messages
+
+### Stop Project
+```bash
+./server.sh stop
+```
