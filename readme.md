@@ -8,9 +8,9 @@ we used [inversify](https://github.com/inversify/InversifyJS) Libary to dealing 
 ```
 
 # List of supported endpoints
-- Set New Message (Post Request) [localhost:3000/message/set]()
+- ##### Set New Message (Post Request) [localhost:3000/message/set]()
     Request Body Can Include Any Fields
-- Get Messages (Get Request) [localhost:3000/message/get]()
+- ##### Get Messages (Get Request) [localhost:3000/message/get]()
     Request Params
     1. from: Date - the min createdAt date
     2. until: Date - the max createdAt date
