@@ -10,14 +10,14 @@ buildImage()
     docker pull redis:latest &> /dev/null
     echo "Redis Image -- Done."
 
-    echo "Building Docker Image (name = moonshot)."
+    echo "Building App Image (name = moonshot)."
     docker build -t moonshot . &> /dev/null
     echo "Moonshot Image -- Done."
 }
 
 initSwarm()
 {
-    if [ "$(docker info --format '{{ .Swarm.LocalNodeState }}')" == "inactive" ];then
+    if [[ "$(docker info --format '{{ .Swarm.LocalNodeState }}')" == "inactive" ]];then
       echo "Initialize swarm manager."
       docker swarm init  &> /dev/null
       echo "Swarm initialized."
