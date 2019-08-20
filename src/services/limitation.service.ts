@@ -11,7 +11,7 @@ export class LimitationService {
         return await this.redisClient.get(ip) == null;
     }
 
-    public async setRateLimiterForIp(ip: string) {
+    public async setRateLimiterForIp(ip: string): Promise<string> {
         return await this.redisClient.setex(ip, RATE_LIMITER_IN_SECONDS, ip);
     }
 }

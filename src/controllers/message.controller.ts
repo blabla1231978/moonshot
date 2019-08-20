@@ -22,7 +22,7 @@ export class MessageController {
     @inject('MessageDto') private messageDto: MessageDto;
 
     @httpGet('/get')
-    private async getMessages(request: express.Request, response: express.Response) {
+    private async getMessages(request: express.Request, response: express.Response): Promise<object> {
         const filters: FiltersInterface = this.filtersDto.getFiltersStructured(request);
         const messages = await this.messageService.getMessages(filters);
         return response.status(messages.status).send(messages);

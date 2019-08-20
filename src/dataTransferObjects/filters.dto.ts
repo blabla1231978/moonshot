@@ -10,8 +10,8 @@ export class FiltersDto {
             website: request.query.website,
             from: request.query.from || null,
             until: request.query.until || null,
-            skip: parseInt(request.query.skip) || null,
-            limit: parseInt(request.query.limit) || null,
+            skip: parseInt(request.query.skip, 0) || null,
+            limit: parseInt(request.query.limit, 0) || null,
         };
     }
 }

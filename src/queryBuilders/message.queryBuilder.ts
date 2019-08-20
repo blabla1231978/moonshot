@@ -29,14 +29,13 @@ export class MessageQueryBuilder {
         return clearedFilters;
     }
 
-    private buildQuery(filters: FiltersInterface) {
+    private buildQuery(filters: FiltersInterface): void {
         this.addWhereSection(filters.website, filters.from, filters.until);
         this.addSkipSection(filters.skip);
         this.addLimitSection(filters.limit);
-        return this.query;
     }
 
-    private addWhereSection(domain: string, fromDate: Date, untilDate: Date) {
+    private addWhereSection(domain: string, fromDate: Date, untilDate: Date): void {
         this.query.where = {};
 
         if ( domain && domain.length > 0) {
@@ -58,13 +57,13 @@ export class MessageQueryBuilder {
         }
     }
 
-    private addSkipSection(skip: number) {
+    private addSkipSection(skip: number): void {
         if ( skip ) {
             this.query.skip = skip;
         }
     }
 
-    private addLimitSection(limit: number) {
+    private addLimitSection(limit: number): void {
         if ( limit ) {
             this.query.limit = limit;
         }
