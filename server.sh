@@ -2,8 +2,17 @@
 
 buildImage()
 {
+    echo "Pulling Mongo Image."
+    docker pull mongo:latest &> /dev/null
+    echo "Mongo Image -- Done."
+
+    echo "Pulling Redis Image."
+    docker pull redis:latest &> /dev/null
+    echo "Redis Image -- Done."
+
     echo "Building Docker Image (name = moonshot)."
     docker build -t moonshot . &> /dev/null
+    echo "Moonshot Image -- Done."
 }
 
 initSwarm()
@@ -28,7 +37,7 @@ deployServices()
 pushToRedisWhitelist()
 {
     echo "Adding 'localhost' to Whitelist (Redis)."
-    docker exec -it $(docker ps -qf "name=redis") redis-cli RPUSH whitelist localhost &> /dev/null
+    docker exec -it $(docker ps -qf "name=redis") redis-cli RPUSH whitelist localhost
 }
 
 startServer()

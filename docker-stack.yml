@@ -25,6 +25,12 @@ services:
       - MONGODB_DATABASE="moonshot"
     ports:
       - 27017:27017
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
 
   redis:
     hostname: redis
