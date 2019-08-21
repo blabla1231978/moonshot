@@ -44,7 +44,7 @@ pushToRedisWhitelist()
         REDIS_CONTAINER=$(docker ps -qf "name=redis")
     done
     echo "Adding 'localhost' to Whitelist (Redis)."
-    docker exec -it $REDIS_CONTAINER redis-cli RPUSH whitelist localhost
+    docker exec -it $REDIS_CONTAINER redis-cli RPUSH whitelist localhost &> /dev/null
 }
 
 startServer()
