@@ -36,8 +36,15 @@ deployServices()
 
 pushToRedisWhitelist()
 {
+    REDIS_CONTAINER=$(docker ps -qf "name=redis")
+    while [[ -z "$REDIS_CONTAINER" ]]
+    do
+        echo "Redis Container down wait 5 seconds"
+        sleep 5
+        REDIS_CONTAINER=$(docker ps -qf "name=redis")
+    done
     echo "Adding 'localhost' to Whitelist (Redis)."
-    docker exec -it $(docker ps -qf "name=redis") redis-cli RPUSH whitelist localhost
+    docker exec -it $REDIS_CONTAINER redis-cli RPUSH whitelist localhost
 }
 
 startServer()
